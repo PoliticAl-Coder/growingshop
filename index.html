@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Growing Shop — Final Polished Storefront</title>
+<style>
+:root {
+  --bg:#0a0d0f; --bg2:#12181c; --panel:#141b1f; --panel2:#1b242a; --line:#2b353c;
+  --text:#f6f8fa; --muted:#aeb8c0; --green:#85eb7f; --green2:#d0ff98; --radius:24px;
+  --shadow:0 18px 45px rgba(0,0,0,.34);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:Inter,Arial,sans-serif;background:linear-gradient(180deg,var(--bg) 0%,var(--bg2) 100%);color:var(--text)}
+a{color:inherit;text-decoration:none}
+.container{width:min(1340px,92vw);margin:0 auto}
+.topbar{background:#080b0d;border-bottom:1px solid var(--line);color:var(--muted);font-size:14px}
+.topbar .container{display:flex;justify-content:space-between;gap:14px;align-items:center;padding:10px 0;flex-wrap:wrap}
+.pill{display:inline-flex;align-items:center;padding:8px 12px;border-radius:999px;background:#0f1712;border:1px solid #324738;color:#ddffdb;font-weight:800}
+header{position:sticky;top:0;z-index:50;background:rgba(10,13,15,.85);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+nav{display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap;padding:16px 0}
+.brand{display:flex;align-items:center;gap:14px}
+.mark{width:50px;height:50px;border-radius:16px;background:linear-gradient(135deg,var(--green),var(--green2));color:#091109;display:grid;place-items:center;font-weight:1000}
+.brand strong{display:block;font-size:22px}
+.brand span{display:block;font-size:13px;color:var(--muted)}
+.links{display:flex;gap:18px;flex-wrap:wrap;color:var(--muted);font-weight:700}
+.links a:hover{color:var(--text)}
+.actions{display:flex;gap:10px;align-items:center}
+.btn{border:1px solid var(--line);background:var(--panel);color:var(--text);padding:12px 15px;border-radius:14px;font-weight:800;cursor:pointer}
+.btn.primary{background:linear-gradient(135deg,var(--green),var(--green2));border:none;color:#071007}
+.hero{padding:38px 0 14px}
+.hero-grid{display:grid;grid-template-columns:1.08fr .92fr;gap:20px}
+.card{background:linear-gradient(180deg,var(--panel) 0%,#10161a 100%);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow)}
+.hero-main{padding:34px;position:relative;overflow:hidden;min-height:450px}
+.hero-main:before{content:"";position:absolute;right:-130px;bottom:-130px;width:420px;height:420px;border-radius:50%;background:radial-gradient(circle,rgba(133,235,127,.16),rgba(133,235,127,0) 68%)}
+.eyebrow{display:inline-flex;align-items:center;padding:8px 12px;border-radius:999px;background:#0f1712;border:1px solid #324738;color:#dbffd7;font-size:12px;font-weight:900;letter-spacing:.06em;text-transform:uppercase}
+h1{font-size:clamp(42px,5vw,70px);line-height:.96;margin:16px 0 14px;max-width:10ch}
+.hero-copy{font-size:18px;line-height:1.62;color:var(--muted);max-width:64ch}
+.hero-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:24px}
+.mini-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:24px}
+.mini{padding:10px 12px;border-radius:999px;background:#10161a;border:1px solid var(--line);font-size:13px;font-weight:800;color:#dbe4ea}
+.hero-side{display:grid;gap:18px}
+.side{padding:24px;min-height:160px}
+.side h3{margin:10px 0 8px;font-size:26px}
+.side p{margin:0;color:var(--muted);line-height:1.58}
+.kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:18px}
+.kpi{background:#0f1518;border:1px solid var(--line);border-radius:18px;padding:14px}
+.kpi strong{display:block;font-size:28px}
+.kpi span{font-size:13px;color:var(--muted)}
+.section{padding:20px 0 8px}
+.head{display:flex;justify-content:space-between;align-items:end;gap:18px;margin:14px 0 16px}
+.head h2{margin:0;font-size:34px}
+.head p{margin:0;color:var(--muted);max-width:70ch;line-height:1.6}
+.category-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.category-card{padding:22px}
+.category-icon{width:54px;height:54px;border-radius:16px;display:grid;place-items:center;background:#0f1518;border:1px solid var(--line);font-size:25px}
+.category-card h3{margin:14px 0 8px;font-size:22px}
+.category-card p{margin:0;color:var(--muted);line-height:1.58}
+.banner{padding:24px;display:flex;justify-content:space-between;align-items:center;gap:18px;flex-wrap:wrap}
+.banner strong{display:block;font-size:28px;margin-bottom:6px}
+.banner p{margin:0;color:var(--muted);max-width:76ch;line-height:1.6}
+.feature-grid,.product-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.product{overflow:hidden}
+.product img{width:100%;height:280px;object-fit:contain;display:block;background:#f3f4f6;border-bottom:1px solid var(--line);padding:20px}
+.product-body{padding:18px}
+.topline{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
+.tag{display:inline-flex;padding:7px 10px;border-radius:999px;background:#102013;border:1px solid #304f34;color:#d8ffd6;font-size:12px;font-weight:900;letter-spacing:.04em;text-transform:uppercase}
+.brandline{margin-top:4px;font-size:13px;color:var(--muted)}
+.product h3{margin:12px 0 8px;font-size:23px}
+.product p{margin:0 0 14px;color:var(--muted);line-height:1.55;min-height:72px}
+.meta{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+.chip{padding:7px 10px;border-radius:999px;background:#0f1518;border:1px solid var(--line);font-size:12px;font-weight:800;color:#d2dce4}
+.price-row{display:flex;justify-content:space-between;gap:12px;align-items:end}
+.price strong{font-size:28px}
+.compare{margin-left:6px;color:#83909a;font-size:14px;text-decoration:line-through}
+.stock{font-size:13px;font-weight:800;color:#c5d1d9}
+.product-actions{display:flex;gap:10px;margin-top:14px}
+.product-actions .btn{flex:1}
+.split{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.panel{padding:24px}
+.panel h3{margin:0 0 10px;font-size:28px}
+.panel p{margin:0;color:var(--muted);line-height:1.6}
+.list{display:grid;gap:12px;margin-top:16px}
+.item{display:flex;gap:12px;align-items:flex-start;background:#0f1518;border:1px solid var(--line);padding:14px;border-radius:18px}
+.tick{width:34px;height:34px;border-radius:12px;background:#101812;border:1px solid #324738;display:grid;place-items:center;color:#d8ffd6;font-weight:900;flex:0 0 auto}
+.toolbar{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin:10px 0 16px}
+.search{flex:1 1 320px;display:flex;gap:10px;align-items:center;background:var(--panel);border:1px solid var(--line);padding:12px 14px;border-radius:16px}
+.search input{width:100%;border:none;outline:none;background:transparent;color:var(--text);font-size:15px}
+.filters{display:flex;gap:10px;flex-wrap:wrap}
+.filter{border:1px solid var(--line);background:var(--panel);color:var(--muted);padding:10px 12px;border-radius:999px;font-weight:800;cursor:pointer}
+.filter.active{background:#101812;border-color:#324738;color:#d9ffd7}
+.footer{padding:28px 0 52px}
+.foot-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:18px}
+.foot{padding:22px}
+.foot h4{margin:0 0 10px;font-size:21px}
+.foot p,.foot li{color:var(--muted);line-height:1.58}
+.foot ul{list-style:none;padding:0;margin:0}
+.foot li{margin:8px 0}
+.notice{margin-top:14px;font-size:13px;color:#94a2ac}
+#cartPanel{position:fixed;right:18px;bottom:18px;width:min(380px,calc(100vw - 24px));z-index:70;display:none}
+.cart-items{display:grid;gap:10px;margin:12px 0}
+.cart-item{display:flex;justify-content:space-between;gap:12px;padding-top:10px;border-top:1px solid var(--line)}
+.cart-item:first-child{border-top:none;padding-top:0}
+.cart-small{font-size:13px;color:var(--muted)}
+.cart-total{display:flex;justify-content:space-between;align-items:center;border-top:1px solid var(--line);padding-top:12px;font-weight:1000}
+.cart-bubble{min-width:28px;height:28px;padding:0 8px;border-radius:999px;background:#10161a;border:1px solid var(--line);display:inline-grid;place-items:center;font-weight:1000}
+@media (max-width:1120px){.hero-grid,.split,.foot-grid{grid-template-columns:1fr}}
+@media (max-width:900px){.category-grid,.feature-grid,.product-grid{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:580px){.category-grid,.feature-grid,.product-grid{grid-template-columns:1fr}.kpis{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="topbar">
+  <div class="container">
+    <div>Premium storefront preview</div>
+    <div style="display:flex;gap:10px;flex-wrap:wrap">
+      <span class="pill">Real product imagery</span>
+      <span class="pill">Bulk boxes</span>
+      <span class="pill">Monthly club</span>
+    </div>
+  </div>
+</div>
+
+<header>
+  <div class="container">
+    <nav>
+      <a href="#top" class="brand">
+        <div class="mark">GS</div>
+        <div><strong>Growing Shop</strong><span>Vapes • Papers • Stash • Stealth Grow</span></div>
+      </a>
+      <div class="links">
+        <a href="#collections">Collections</a>
+        <a href="#featured">Featured</a>
+        <a href="#shop">Shop</a>
+        <a href="#club">Club</a>
+      </div>
+      <div class="actions">
+        <button class="btn" id="cartToggle">Cart <span class="cart-bubble" id="cartCount">0</span></button>
+        <a class="btn primary" href="#shop">Shop now</a>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<main class="container" id="top">
+  <section class="hero">
+    <div class="hero-grid">
+      <div class="card hero-main">
+        <span class="eyebrow">Specialist gear, standout papers, premium storage</span>
+        <h1>Everything for the session, all in one place.</h1>
+        <p class="hero-copy">
+          Explore smart e-rigs, premium papers, pink cones, wooden stash boxes, walnut trays and sleek all-in-one grow systems.
+          Built for shoppers who want more than the usual shelf.
+        </p>
+        <div class="hero-actions">
+          <a class="btn primary" href="#featured">Shop highlights</a>
+          <a class="btn" href="#club">Join the club</a>
+        </div>
+        <div class="mini-row">
+          <span class="mini">Fast-moving papers & boxes</span>
+          <span class="mini">Giftable storage</span>
+          <span class="mini">Stealth smart systems</span>
+        </div>
+      </div>
+      <div class="hero-side">
+        <div class="card side">
+          <span class="eyebrow">Fresh picks</span>
+          <h3>Premium hardware meets everyday essentials</h3>
+          <p>From flagship concentrate devices to repeat-buy papers, tips and box deals, the range is built for both first baskets and regular orders.</p>
+        </div>
+        <div class="card side">
+          <span class="eyebrow">Why customers stay</span>
+          <h3>Bulk savings. Better storage. Cleaner setup.</h3>
+          <p>Save on bulk boxes, subscribe to monthly rolling essentials and keep everything tidy with premium stash and tray options.</p>
+          <div class="kpis">
+            <div class="kpi"><strong>9</strong><span>Core products shown</span></div>
+            <div class="kpi"><strong>6</strong><span>Store collections</span></div>
+            <div class="kpi"><strong>3</strong><span>Club tiers</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="collections">
+    <div class="head">
+      <div>
+        <h2>Shop by collection</h2>
+        <p>Clean categories that make the range easy to browse and easy to buy from.</p>
+      </div>
+    </div>
+    <div class="category-grid">
+      <article class='card category-card'><div class='category-icon'>⚡</div><h3>E-Rigs & Dab Devices</h3><p>Smart rigs, concentrate hardware and premium setup pieces.</p></article><article class='card category-card'><div class='category-icon'>📜</div><h3>Papers & Tips</h3><p>From trusted staples to standout premium picks.</p></article><article class='card category-card'><div class='category-icon'>🪄</div><h3>Cones & Session Gear</h3><p>Cones, trays and rolling essentials for easy sessions.</p></article><article class='card category-card'><div class='category-icon'>🪵</div><h3>Stash & Storage</h3><p>Wooden organisers, lockable boxes and display-worthy storage.</p></article><article class='card category-card'><div class='category-icon'>🧊</div><h3>Stealth Grow Systems</h3><p>Clean, compact systems with a more discreet furniture-like look.</p></article><article class='card category-card'><div class='category-icon'>📦</div><h3>Bulk Box Deals</h3><p>Buy more, save more and stay stocked for longer.</p></article>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="card banner">
+      <div>
+        <strong>Buy once, sorted for months</strong>
+        <p>Bulk paper boxes and monthly repeat deliveries keep the cupboard full and the prices sharper.</p>
+      </div>
+      <a class="btn primary" href="#club">See club & bulk offers</a>
+    </div>
+  </section>
+
+  <section class="section" id="featured">
+    <div class="head">
+      <div>
+        <h2>Featured products</h2>
+        <p>Top shelf hardware, standout rolling picks and gift-ready storage.</p>
+      </div>
+    </div>
+    <div class="feature-grid" id="featuredGrid"></div>
+  </section>
+
+  <section class="section" id="club">
+    <div class="split">
+      <div class="card panel">
+        <h3>The Session Supply Club</h3>
+        <p>Monthly deliveries for regular buyers who never want to run short.</p>
+        <div class="list">
+          <div class="item"><div class="tick">1</div><div><strong>Starter — £9.99 / month</strong><br><span class="cart-small">3 paper packs, 2 tip packs and 5% off extra rolling gear.</span></div></div>
+          <div class="item"><div class="tick">2</div><div><strong>Regular — £19.99 / month</strong><br><span class="cart-small">6 paper packs, 4 tip packs, cones or tray add-on and 10% off the rolling section.</span></div></div>
+          <div class="item"><div class="tick">3</div><div><strong>Connoisseur — £39.99 / month</strong><br><span class="cart-small">Premium mix with standout papers, stash accessory and 15% off plus free delivery.</span></div></div>
+        </div>
+      </div>
+      <div class="card panel">
+        <h3>Bulk box deals</h3>
+        <p>Built for regular smokers, parties, stocking the drawer or gifting a full setup.</p>
+        <div class="list">
+          <div class="item"><div class="tick">✓</div><div><strong>RAW Black Box — £69.99</strong><br><span class="cart-small">Big-value classic for repeat buyers.</span></div></div>
+          <div class="item"><div class="tick">✓</div><div><strong>Elements Ultra Thin — from £1.19</strong><br><span class="cart-small">Clean, premium feel with everyday appeal.</span></div></div>
+          <div class="item"><div class="tick">✓</div><div><strong>Elements x Zushi — £6.99</strong><br><span class="cart-small">A bolder shelf pick for customers after something different.</span></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="shop">
+    <div class="head">
+      <div>
+        <h2>Shop all</h2>
+        <p>Search by product, brand or category and add items to the cart in-page.</p>
+      </div>
+    </div>
+    <div class="toolbar">
+      <div class="search"><span>🔎</span><input id="searchInput" placeholder="Search Peak Pro, stash box, cones, Elements, grow box..." /></div>
+      <div class="filters" id="filters"></div>
+    </div>
+    <div class="product-grid" id="productGrid"></div>
+  </section>
+
+  <footer class="footer">
+    <div class="foot-grid">
+      <div class="card foot">
+        <h4>Growing Shop</h4>
+        <p>Premium devices, standout papers, repeat-buy box deals and storage worth leaving out on display.</p>
+        <div class="notice">Preview only. Cart and browsing work in-page; checkout is not connected.</div>
+      </div>
+      <div class="card foot">
+        <h4>Popular routes</h4>
+        <ul>
+          <li><a href="#featured">Featured</a></li>
+          <li><a href="#shop">Shop all</a></li>
+          <li><a href="#club">The Session Supply Club</a></li>
+        </ul>
+      </div>
+      <div class="card foot">
+        <h4>Best sellers</h4>
+        <ul>
+          <li>Peak Pro 3DXL</li>
+          <li>VGrow Smart Grow Box</li>
+          <li>RAW Black Box</li>
+          <li>Dark Wood Stash Box</li>
+        </ul>
+      </div>
+    </div>
+  </footer>
+</main>
+
+<aside id="cartPanel">
+  <div class="card panel">
+    <div style="display:flex;justify-content:space-between;align-items:center;gap:12px">
+      <div><strong style="font-size:24px">Cart</strong><div class="cart-small">Preview only</div></div>
+      <button class="btn" id="closeCart">Close</button>
+    </div>
+    <div class="cart-items" id="cartItems"></div>
+    <div class="cart-total"><span>Total</span><strong id="cartTotal">£0.00</strong></div>
+    <div class="product-actions" style="margin-top:14px">
+      <button class="btn" id="clearCart">Clear</button>
+      <button class="btn primary">Checkout</button>
+    </div>
+  </div>
+</aside>
+
+<script>
+const products = [{"id": 1, "name": "Peak Pro 3DXL", "brand": "Puffco", "category": "E-Rigs & Dab Devices", "price": 339.0, "compare_at": 399.0, "stock": 4, "badge": "Flagship", "img": "https://www.puffco.com/cdn/shop/files/PeakProOnyxLeft3Quarter3DXL.png?v=1763407824&width=3600", "desc": "Smart premium e-rig with water filtration, app-ready customisation and a strong halo effect for the whole store."}, {"id": 2, "name": "Hot Knife", "brand": "Puffco", "category": "Concentrate Tools", "price": 49.0, "compare_at": 59.0, "stock": 8, "badge": "Best Add-On", "img": "https://www.puffco.com/cdn/shop/files/HotKnife_Onyx_Desktop_HotKnife_Onyx_1200x1200.png?v=1730234380", "desc": "A heated loading tool that makes concentrate handling cleaner, easier and more premium."}, {"id": 3, "name": "VGrow Smart Grow Box", "brand": "Vivosun", "category": "Stealth Grow Systems", "price": 649.99, "compare_at": 799.99, "stock": 2, "badge": "Stealth System", "img": "https://image.next.vivosun.com/asset/width-1110/picture/0768e1ae78e5366b62d40c22d701476d.png", "desc": "Fridge-style all-in-one smart grow box with a compact footprint and a clean, furniture-like look."}, {"id": 4, "name": "Elements Ultra Thin 1\u00bc", "brand": "Elements", "category": "Papers & Tips", "price": 1.19, "compare_at": 1.49, "stock": 40, "badge": "Classic Premium", "img": "https://esdofficial.com/cdn/shop/files/elements-ultra-thin-1-1-4-rolling-papers-rolling-papers-eleb-rprc-1403-1-25-esd-official-32783084519562_300x.png?v=1694618367", "desc": "Ultra-thin rice papers with a clean, premium feel and strong everyday appeal."}, {"id": 5, "name": "Elements x Zushi", "brand": "Elements", "category": "Papers & Tips", "price": 6.99, "compare_at": 8.49, "stock": 18, "badge": "Standout Pick", "img": "https://esdofficial.com/cdn/shop/files/elements-x-zushi-king-size-wide-rolling-papers-raw-cones-raw-rolling-papers-raw-cones-1159001384_300x.png?v=1751383313", "desc": "A more exotic, limited-feel paper line for customers who want something different from the usual shelf."}, {"id": 6, "name": "Blazy Susan Pink Cones", "brand": "Blazy Susan", "category": "Cones & Session Gear", "price": 2.99, "compare_at": 3.49, "stock": 24, "badge": "Pink Cones", "img": "https://smoketime.ca/cdn/shop/files/Smoketime-H145_19.png?v=1775778106&width=720", "desc": "Pre-rolled pink cones that add colour, convenience and instant shelf appeal."}, {"id": 7, "name": "RAW Black Box", "brand": "RAW", "category": "Bulk Box Deals", "price": 69.99, "compare_at": 84.99, "stock": 10, "badge": "Bulk Saver", "img": "https://ozbongs.com.au/media/catalog/product/cache/bf9249a3e48d6bd6b0d0d18188f7a1a6/r/a/raw-black-kss-box.jpg", "desc": "Bulk box pricing for regular buyers who want to stock up and save."}, {"id": 8, "name": "Dark Wood Stash Box", "brand": "Swag Gear", "category": "Stash & Storage", "price": 59.99, "compare_at": 74.99, "stock": 6, "badge": "Giftable", "img": "https://swaggearvip.com/cdn/shop/products/il_fullxfull.1704628554_fzmj_1800x1800.jpg?v=1650331945", "desc": "Lockable wood stash storage with compartments and a more premium, gift-ready look."}, {"id": 9, "name": "Walnut Rolling Tray", "brand": "Marley Natural", "category": "Cones & Session Gear", "price": 29.99, "compare_at": 39.99, "stock": 8, "badge": "Premium Tray", "img": "https://accessories.missiondispensaries.com/cdn/shop/products/marley-natural-rolling-tray.jpg?v=1674829912", "desc": "A clean walnut tray that elevates the rolling section and pairs perfectly with stash boxes."}];
+const featuredIds = [1,3,5,8,9,7];
+const state = { search: "", category: "All", cart: {} };
+const categories = ["All", ...new Set(products.map(p => p.category))];
+
+function money(n) { return "£" + Number(n).toFixed(2); }
+
+function cardHTML(p) {
+  return `
+    <article class="card product">
+      <img src="${p.img}" alt="${p.name}">
+      <div class="product-body">
+        <div class="topline">
+          <div>
+            <span class="tag">${p.badge}</span>
+            <div class="brandline">${p.brand} • ${p.category}</div>
+          </div>
+        </div>
+        <h3>${p.name}</h3>
+        <p>${p.desc}</p>
+        <div class="meta">
+          <span class="chip">Stock ${p.stock}</span>
+          <span class="chip">${p.brand}</span>
+        </div>
+        <div class="price-row">
+          <div class="price"><strong>${money(p.price)}</strong><span class="compare">${money(p.compare_at)}</span></div>
+          <div class="stock">${p.stock > 8 ? "In stock" : p.stock > 0 ? "Low stock" : "Sold out"}</div>
+        </div>
+        <div class="product-actions">
+          <button class="btn" onclick="addToCart(${p.id})">Add to cart</button>
+          <button class="btn primary" onclick="window.scrollTo({top:0,behavior:'smooth'})">Quick look</button>
+        </div>
+      </div>
+    </article>`;
+}
+
+function renderFeatured() {
+  document.getElementById("featuredGrid").innerHTML = products.filter(p => featuredIds.includes(p.id)).map(cardHTML).join("");
+}
+
+function renderFilters() {
+  document.getElementById("filters").innerHTML = categories.map(cat => `
+    <button class="filter ${state.category===cat ? "active":""}" onclick="setCategory('${cat.replace(/'/g, "\\'")}')">${cat}</button>
+  `).join("");
+}
+
+function filtered() {
+  return products.filter(p => {
+    const inCat = state.category === "All" || p.category === state.category;
+    const q = state.search.trim().toLowerCase();
+    const hay = `${p.name} ${p.brand} ${p.category} ${p.desc}`.toLowerCase();
+    return inCat && (!q || hay.includes(q));
+  });
+}
+
+function renderProducts() {
+  const items = filtered();
+  const grid = document.getElementById("productGrid");
+  if (!items.length) {
+    grid.innerHTML = `<div class="card panel" style="grid-column:1/-1">No products matched that search.</div>`;
+    return;
+  }
+  grid.innerHTML = items.map(cardHTML).join("");
+}
+
+function setCategory(cat) {
+  state.category = cat;
+  renderFilters();
+  renderProducts();
+}
+
+function addToCart(id) {
+  state.cart[id] = (state.cart[id] || 0) + 1;
+  renderCart();
+  document.getElementById("cartPanel").style.display = "block";
+}
+
+function renderCart() {
+  const items = Object.entries(state.cart).map(([id, qty]) => {
+    const p = products.find(x => x.id === Number(id));
+    return {...p, qty, total: qty * p.price};
+  });
+  document.getElementById("cartCount").textContent = items.reduce((a,b)=>a+b.qty,0);
+  const el = document.getElementById("cartItems");
+  if (!items.length) {
+    el.innerHTML = `<div class="cart-small" style="margin-top:12px">Your cart is empty.</div>`;
+    document.getElementById("cartTotal").textContent = money(0);
+    return;
+  }
+  el.innerHTML = items.map(item => `
+    <div class="cart-item">
+      <div>
+        <strong>${item.name}</strong>
+        <div class="cart-small">${item.qty} × ${money(item.price)}</div>
+      </div>
+      <strong>${money(item.total)}</strong>
+    </div>
+  `).join("");
+  document.getElementById("cartTotal").textContent = money(items.reduce((a,b)=>a+b.total,0));
+}
+
+document.getElementById("searchInput").addEventListener("input", e => {
+  state.search = e.target.value;
+  renderProducts();
+});
+document.getElementById("cartToggle").addEventListener("click", () => {
+  const p = document.getElementById("cartPanel");
+  p.style.display = p.style.display === "block" ? "none" : "block";
+});
+document.getElementById("closeCart").addEventListener("click", () => {
+  document.getElementById("cartPanel").style.display = "none";
+});
+document.getElementById("clearCart").addEventListener("click", () => {
+  state.cart = {};
+  renderCart();
+});
+
+renderFeatured();
+renderFilters();
+renderProducts();
+renderCart();
+</script>
+</body>
+</html>
