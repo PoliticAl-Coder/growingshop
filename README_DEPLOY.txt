@@ -1,18 +1,10 @@
-THE GROW CO. v19
+THE GROW CO. v20
 
-Upload ALL files in this folder to the root of the GitHub repo.
+Upload ALL files to GitHub root.
 
-Fixed:
-- Shop by Collection text visibility
-- Homepage left menu opens the correct shop collection
-- Shop page sidebar switching retained
-- Sort and filters retained
-
-Files:
-index.html
-shop.html
-engraving.html
-account.html
-contact.html
-legal.html
-.nojekyll
+Fixes:
+- Removed confusing Starter/Customisable filters
+- Added proper filters: Premium, Repeat buys, Papers & lighters, Torches & gas, Giftable, Engraving boxes, Cleaning
+- Added lighters, torches, butane, grinders and cleaning products
+- Fixed Add to Cart and Details buttons
+- Rebuilt homepage/shop links so they work reliably
