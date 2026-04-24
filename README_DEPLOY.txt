@@ -1,0 +1,1 @@
+Upload every file in this folder to the root of the GitHub repo: index.html, shop.html, engraving.html, account.html, contact.html, legal.html and .nojekyll.
